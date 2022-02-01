@@ -1,6 +1,6 @@
 const board   = document.querySelector('.board');
 const button  = document.querySelector('button');
-
+const header  = document.querySelector('.header');
 
 const createBoard  = (array) => { //fills .board with li's and assigns them id's to match position in array
     let i = 0;
@@ -14,11 +14,17 @@ const createBoard  = (array) => { //fills .board with li's and assigns them id's
     })
     
 };
-
+const displayWinner = function (whoWins) {
+    const h2 = document.createElement('h2');
+    h2.textContent = `${whoWins} Wins!`
+    h2.id = 'displayWinner';
+    header.appendChild(h2);
+};
 
 
 const gameTieCheck = () => { //if game.turn === 9 returns true and resets to 0
     if (game.turn === 9 ) {
+        displayWinner('No One')
         console.log('gameTieCheck ended GAME')
         // game.turn = 1;
         return true;
@@ -36,52 +42,52 @@ const emptyCheck   = (currentValue) => { //returns true if it is empty, false if
 
 const checkWin     = () => {
     if (squares[0].textContent == 'X' && squares[1].textContent == 'X' && squares[2].textContent == 'X') {
-        console.log('X Wins');
+        displayWinner('X');
         return true;
     } else if (squares[0].textContent == 'X' && squares[3].textContent == 'X' && squares[6].textContent == 'X') {
-        console.log('X Wins');
+        displayWinner('X');
         return true;
     } else if (squares[0].textContent == 'X' && squares[4].textContent == 'X' && squares[8].textContent == 'X') {
-        console.log('X Wins');
+        displayWinner('X');
         return true;
     } else if (squares[2].textContent == 'X' && squares[4].textContent == 'X' && squares[6].textContent == 'X') {
-        console.log('X Wins');
+        displayWinner('X');
         return true;
     } else if (squares[3].textContent == 'X' && squares[4].textContent == 'X' && squares[5].textContent == 'X') {
-        console.log('X Wins');
+        displayWinner('X');
         return true;
     } else if (squares[6].textContent == 'X' && squares[7].textContent == 'X' && squares[8].textContent == 'X') {
-        console.log('X Wins');
+        displayWinner('X');
         return true;
     } else if (squares[1].textContent == 'X' && squares[4].textContent == 'X' && squares[7].textContent == 'X') {
-        console.log('X Wins');
+        displayWinner('X');
         return true;
     } else if (squares[2].textContent == 'X' && squares[5].textContent == 'X' && squares[8].textContent == 'X') {
-        console.log('X Wins');
+        displayWinner('X');
         return true;
     } else if (squares[0].textContent == 'O' && squares[1].textContent == 'O' && squares[2].textContent == 'O') {
-        console.log('O Wins');
+        displayWinner('O');
         return true;
     } else if (squares[0].textContent == 'O' && squares[3].textContent == 'O' && squares[6].textContent == 'O') {
-        console.log('O Wins');
+        displayWinner('O');
         return true;
     } else if (squares[0].textContent == 'O' && squares[4].textContent == 'O' && squares[8].textContent == 'O') {
-        console.log('O Wins');
+        displayWinner('O');
         return true;
     } else if (squares[2].textContent == 'O' && squares[4].textContent == 'O' && squares[6].textContent == 'O') {
-        console.log('O Wins');
+        displayWinner('O');
         return true;
     } else if (squares[3].textContent == 'O' && squares[4].textContent == 'O' && squares[5].textContent == 'O') {
-        console.log('O Wins');
+        displayWinner('O');
         return true;
     } else if (squares[6].textContent == 'O' && squares[7].textContent == 'O' && squares[8].textContent == 'O') {
-        console.log('O Wins');
+        displayWinner('O');
         return true;
     } else if (squares[1].textContent == 'O' && squares[4].textContent == 'O' && squares[7].textContent == 'O') {
-        console.log('O Wins');
+        displayWinner('O');
         return true;
     } else if (squares[2].textContent == 'O' && squares[5].textContent == 'O' && squares[8].textContent == 'O') {
-        console.log('O Wins');
+        displayWinner('O');
         return true;
     } else {
         return false;
@@ -102,15 +108,15 @@ const gameBoard    = (() => {
 
 const squares = [...document.querySelectorAll('li')];
 
-const player       = (() => { //makes players X & O
-    const players = (marker) => {
-        return {marker};
-    }
-    const X = players('X');
-    const O = players('O');
+// const player       = (() => { //makes players X & O
+//     const players = (marker) => {
+//         return {marker};
+//     }
+//     const X = players('X');
+//     const O = players('O');
 
-    return {X, O};
-})();
+//     return {X, O};
+// })();
 
 
 
@@ -155,12 +161,14 @@ const game = (() => {
 })();
 
 button.addEventListener('click', (e) => { //reset button
+    const displayWinner = document.getElementById('displayWinner');
    const squares = [...board.childNodes];
    squares.forEach((square) => {
        square.textContent = "";
        
    })
    game.turn = 1;
+   displayWinner.textContent = '';
 })
 
 
